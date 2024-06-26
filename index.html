@@ -1,0 +1,94 @@
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <title>Фильтры и сортировка</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="http://d3js.org/d3.v7.min.js"></script>
+    </head>
+    <body>
+
+    <details>
+        <summary>Фильтрация</summary>
+        <form id="filter">
+            <p>
+                <label for="nametag">Название предмета:</label>
+                <input type="text" id="nametag">
+            </p>
+            <p>
+                <label for="enchancelevelfrom">Уровень усиления:</label>
+                от <input type="number" id="enchancelevelfrom" min="0" max="18">
+                до <input type="number" id="enchancelevelto" min="1" max="19">
+            </p>
+            <p>
+                <label for="maxluckfrom">Максимальное число неудач:</label>
+                от <input type="number" id="maxluckfrom" min="0" max="499">
+                до <input type="number" id="maxluckto" min="1" max="500">
+            </p>
+            <p>
+                <label for="basechancefrom">Базовый шанс усиления:</label>
+                от <input type="number" id="basechancefrom" min="0" max="99">%
+                до <input type="number" id="basechanceto" min="1" max="100">%
+            </p>
+
+            <input type="button" value="Найти" id="search_button" onclick="filterTable()">
+            <input type="button" value="Очистить фильтры" id="clearsearch_button" onclick="clearFilter()">
+        </form>
+    </details>
+
+    <details>
+        <summary>Сортировка</summary>
+        <form id="sort">
+            <p> Сортировать по</p>
+
+            <p>
+                <select id="fieldsFirst"></select>
+                по убыванию? <input type="checkbox" id="fieldsFirstDesc">
+            </p>
+            <p>
+                <select id="fieldsSecond"></select>
+                по убыванию? <input type="checkbox" id="fieldsSecondDesc">
+            </p>
+            <p>
+                <select id="fieldsThird"></select>
+                по убыванию? <input type="checkbox" id="fieldsThirdDesc">
+            </p>
+
+            <input type="button" value="Сортировать" id="sort_button">
+            <input type="button" value="Сбросить сортировку" id="clearsort_button">
+        </form>
+    </details>
+
+    <details class="graph">
+        <summary>График</summary>
+        <form id="graph">
+            <div class="graphox">
+                <div class="text">Ось Ox</div>
+                <input type="radio" name="ox" id="nametaggraph"/>
+                <label for="nametaggraph">Название предмета</label><br/>
+                <input type="radio" name="ox" id="enchancelevelgraph"/>
+                <label for="enchancelevelgraph">Уровень усиления</label><br/>
+            </div>
+            <div class="graphoy">
+                <div class="text">Ось Oy</div>
+                <input type="checkbox" name="oy" value="chance" onclick="changeState(this.form, value)" id="minchance"/>
+                <label for="minchance">Минимальный базовый шанс усиления</label><br/>
+                <input type="checkbox" name="oy" value="chance" onclick="changeState(this.form, value)" id="maxchance"/>
+                <label for="maxchance">Максимальный базовый шанс усиления</label><br/>
+                <input type="checkbox" name="oy" value="luck" onclick="changeState(this.form, value)" id="minluck"/>
+                <label for="minluck">Минимальный предел неудач:</label><br/>
+                <input type="checkbox" name="oy" value="luck" onclick="changeState(this.form, value)" id="maxluck"/>
+                <label for="maxluck">Максимальный предел неудач:</label><br/>
+            </div>
+            <p>
+                <input type="button" value="Построить график" onclick="drawGraph(this.form)">
+            </p>
+        </form>
+    </details>
+
+
+        <table id="list">
+        </table>
+    </body>
+    <script src="program.js"></script>
+    <script src="data.js"></script>
+</html>
